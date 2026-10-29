@@ -1,0 +1,3 @@
+export function Status({ value }: { value: string | null | undefined }) { const text = (value || "Unknown").replaceAll("_", " "); return <span className={`status ${text.toLowerCase().replaceAll(" ", "_")}`}>{text}</span>; }
+export function PageHeader({ title, subtitle, children }: { title: string; subtitle: string; children?: React.ReactNode }) { return <div className="toolbar"><div><h1 className="page-title">{title}</h1><p className="page-subtitle">{subtitle}</p></div>{children}</div>; }
+export function Empty({ children }: { children: React.ReactNode }) { return <div className="empty">{children}</div>; }

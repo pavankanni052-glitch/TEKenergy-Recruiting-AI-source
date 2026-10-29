@@ -1,0 +1,4 @@
+import { NextResponse } from "next/server";
+import { getShortlist } from "@/lib/repository";
+import { getCurrentUser } from "@/lib/auth";
+export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) { const user = await getCurrentUser(); if (!user) return NextResponse.json({ error: "Authentication required" }, { status: 401 }); const data = getShortlist((await params).id); if (!data) return NextResponse.json({ error: "Not found" }, { status: 404 }); return new NextResponse(JSON.stringify({ generatedAt: new Date().toISOString(), disclaimer: "Recruiter decision-support report. Not a hiring decision or client submission.", shortlist: data }, null, 2), { headers: { "Content-Type": "application/json", "Content-Disposition": `attachment; filename="tekenergy-shortlist-${data.id}.json"` } }); }
